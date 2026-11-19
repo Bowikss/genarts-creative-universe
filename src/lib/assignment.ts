@@ -8,12 +8,12 @@ export function localMinutes(d: Date, tz = BUSINESS_TZ) {
   const parts = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: tz }).formatToParts(d);
   const h = Number(parts.find((p) => p.type === "hour")!.value);
   const m = Number(parts.find((p) => p.type === "minute")!.value);
-  return h * 60 + m;
+  return (h ?? 0) * 60 + (m ?? 0);
 }
 export function localDay(d: Date, tz = BUSINESS_TZ) {
   return new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(d);
 }
-const toMin = (t: string) => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+const toMin = (t: string) => { const [h, m] = t.split(":").map(Number); return (h ?? 0) * 60 + (m ?? 0); };
 const overlaps = (a0: number, a1: number, b0: number, b1: number) => a0 < b1 && b0 < a1;
 
 /**
@@ -40,5 +40,5 @@ export function pickStation(opts: {
   const load = (id: string) => appointments
     .filter((a) => a.station_id === id && localDay(new Date(a.starts_at)) === day)
     .reduce((sum, a) => sum + (new Date(a.ends_at).getTime() - new Date(a.starts_at).getTime()), 0);
-  return candidates.sort((a, b) => load(a.id) - load(b.id) || a.number - b.number)[0];
+  return candidates.sort((a, b) => load(a.id) - load(b.id) || a.number - b.number)[0] ?? null;
 }
