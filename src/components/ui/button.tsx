@@ -11,7 +11,8 @@ const buttonVariants = cva(
       variant: {
         hero: "bg-primary text-primary-foreground font-semibold shadow-glow hover:bg-primary/90",
         step: "h-auto min-h-20 w-full justify-start whitespace-normal rounded-xl border-2 border-border bg-card px-6 py-5 text-left text-xl font-semibold text-card-foreground hover:border-primary hover:bg-accent",
-        stepNext: "h-auto min-h-20 w-full justify-start whitespace-normal rounded-xl border-2 border-primary bg-primary px-6 py-5 text-left text-xl font-bold text-primary-foreground shadow-glow hover:bg-primary/90",
+        stepNext:
+          "h-auto min-h-20 w-full justify-start whitespace-normal rounded-xl border-2 border-primary bg-primary px-6 py-5 text-left text-xl font-bold text-primary-foreground shadow-glow hover:bg-primary/90",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:

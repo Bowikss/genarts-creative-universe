@@ -123,7 +123,11 @@
   --sidebar-accent-foreground: oklch(0.96 0.01 220);
   --sidebar-border: oklch(0.32 0.015 240);
   --sidebar-ring: oklch(0.82 0.14 195);
-  --gradient-hero: radial-gradient(ellipse at top, color-mix(in oklab, var(--primary) 22%, transparent), transparent 60%);
+  --gradient-hero: radial-gradient(
+    ellipse at top,
+    color-mix(in oklab, var(--primary) 22%, transparent),
+    transparent 60%
+  );
   --shadow-glow: 0 0 40px -10px color-mix(in oklab, var(--primary) 60%, transparent);
 }
 
@@ -137,11 +141,20 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
 }
 
-@utility bg-hero { background-image: var(--gradient-hero); }
-@utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility bg-hero {
+  background-image: var(--gradient-hero);
+}
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
 @utility plate {
   font-family: var(--font-mono);
   font-weight: 700;
@@ -150,5 +163,15 @@
   border-radius: 0.375rem;
   padding: 0.1rem 0.5rem;
 }
-@keyframes pulse-ring { 0%,100% { opacity: 1 } 50% { opacity: .45 } }
-@utility animate-pulse-soft { animation: pulse-ring 2s ease-in-out infinite; }
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@utility animate-pulse-soft {
+  animation: pulse-ring 2s ease-in-out infinite;
+}

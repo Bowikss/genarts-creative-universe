@@ -14,8 +14,15 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAppointmentsRouteImport } from './routes/_authenticated/appointments'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedTabletRouteImport } from './routes/_authenticated/tablet'
+import { Route as AuthenticatedOverviewRouteImport } from './routes/_authenticated/overview'
+import { Route as DisplayKeyRouteImport } from './routes/display/$key'
+import { Route as TrackTokenRouteImport } from './routes/track/$token'
+import { Route as AuthenticatedTabletIndexRouteImport } from './routes/_authenticated/tablet/index'
+import { Route as AuthenticatedTabletIdRouteImport } from './routes/_authenticated/tablet/$id'
+import { Route as AuthenticatedVehiclesIndexRouteImport } from './routes/_authenticated/vehicles/index'
+import { Route as AuthenticatedVehiclesRegRouteImport } from './routes/_authenticated/vehicles/$reg'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,32 +48,85 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppointmentsRoute =
+  AuthenticatedAppointmentsRouteImport.update({
+    id: '/appointments',
+    path: '/appointments',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedTabletRoute = AuthenticatedTabletRouteImport.update({
-  id: '/tablet',
-  path: '/tablet',
+const AuthenticatedOverviewRoute = AuthenticatedOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const DisplayKeyRoute = DisplayKeyRouteImport.update({
+  id: '/display/$key',
+  path: '/display/$key',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackTokenRoute = TrackTokenRouteImport.update({
+  id: '/track/$token',
+  path: '/track/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTabletIndexRoute =
+  AuthenticatedTabletIndexRouteImport.update({
+    id: '/tablet/',
+    path: '/tablet/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTabletIdRoute = AuthenticatedTabletIdRouteImport.update({
+  id: '/tablet/$id',
+  path: '/tablet/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVehiclesIndexRoute =
+  AuthenticatedVehiclesIndexRouteImport.update({
+    id: '/vehicles/',
+    path: '/vehicles/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedVehiclesRegRoute =
+  AuthenticatedVehiclesRegRouteImport.update({
+    id: '/vehicles/$reg',
+    path: '/vehicles/$reg',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/appointments': typeof AuthenticatedAppointmentsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/tablet': typeof AuthenticatedTabletRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/display/$key': typeof DisplayKeyRoute
+  '/track/$token': typeof TrackTokenRoute
+  '/tablet/$id': typeof AuthenticatedTabletIdRoute
+  '/vehicles/$reg': typeof AuthenticatedVehiclesRegRoute
+  '/tablet/': typeof AuthenticatedTabletIndexRoute
+  '/vehicles/': typeof AuthenticatedVehiclesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/appointments': typeof AuthenticatedAppointmentsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/tablet': typeof AuthenticatedTabletRoute
+  '/overview': typeof AuthenticatedOverviewRoute
+  '/display/$key': typeof DisplayKeyRoute
+  '/track/$token': typeof TrackTokenRoute
+  '/tablet/$id': typeof AuthenticatedTabletIdRoute
+  '/vehicles/$reg': typeof AuthenticatedVehiclesRegRoute
+  '/tablet': typeof AuthenticatedTabletIndexRoute
+  '/vehicles': typeof AuthenticatedVehiclesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -75,14 +135,47 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/book': typeof BookRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/appointments': typeof AuthenticatedAppointmentsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/tablet': typeof AuthenticatedTabletRoute
+  '/_authenticated/overview': typeof AuthenticatedOverviewRoute
+  '/display/$key': typeof DisplayKeyRoute
+  '/track/$token': typeof TrackTokenRoute
+  '/_authenticated/tablet/$id': typeof AuthenticatedTabletIdRoute
+  '/_authenticated/vehicles/$reg': typeof AuthenticatedVehiclesRegRoute
+  '/_authenticated/tablet/': typeof AuthenticatedTabletIndexRoute
+  '/_authenticated/vehicles/': typeof AuthenticatedVehiclesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/book' | '/admin' | '/dashboard' | '/tablet'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/book'
+    | '/admin'
+    | '/appointments'
+    | '/dashboard'
+    | '/overview'
+    | '/display/$key'
+    | '/track/$token'
+    | '/tablet/$id'
+    | '/vehicles/$reg'
+    | '/tablet/'
+    | '/vehicles/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/book' | '/admin' | '/dashboard' | '/tablet'
+  to:
+    | '/'
+    | '/auth'
+    | '/book'
+    | '/admin'
+    | '/appointments'
+    | '/dashboard'
+    | '/overview'
+    | '/display/$key'
+    | '/track/$token'
+    | '/tablet/$id'
+    | '/vehicles/$reg'
+    | '/tablet'
+    | '/vehicles'
   id:
     | '__root__'
     | '/'
@@ -90,8 +183,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/book'
     | '/_authenticated/admin'
+    | '/_authenticated/appointments'
     | '/_authenticated/dashboard'
-    | '/_authenticated/tablet'
+    | '/_authenticated/overview'
+    | '/display/$key'
+    | '/track/$token'
+    | '/_authenticated/tablet/$id'
+    | '/_authenticated/vehicles/$reg'
+    | '/_authenticated/tablet/'
+    | '/_authenticated/vehicles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -99,6 +199,8 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   BookRoute: typeof BookRoute
+  DisplayKeyRoute: typeof DisplayKeyRoute
+  TrackTokenRoute: typeof TrackTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/appointments': {
+      id: '/_authenticated/appointments'
+      path: '/appointments'
+      fullPath: '/appointments'
+      preLoaderRoute: typeof AuthenticatedAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -145,11 +254,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/tablet': {
-      id: '/_authenticated/tablet'
+    '/_authenticated/overview': {
+      id: '/_authenticated/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof AuthenticatedOverviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/display/$key': {
+      id: '/display/$key'
+      path: '/display/$key'
+      fullPath: '/display/$key'
+      preLoaderRoute: typeof DisplayKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/track/$token': {
+      id: '/track/$token'
+      path: '/track/$token'
+      fullPath: '/track/$token'
+      preLoaderRoute: typeof TrackTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/tablet/': {
+      id: '/_authenticated/tablet/'
       path: '/tablet'
-      fullPath: '/tablet'
-      preLoaderRoute: typeof AuthenticatedTabletRouteImport
+      fullPath: '/tablet/'
+      preLoaderRoute: typeof AuthenticatedTabletIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tablet/$id': {
+      id: '/_authenticated/tablet/$id'
+      path: '/tablet/$id'
+      fullPath: '/tablet/$id'
+      preLoaderRoute: typeof AuthenticatedTabletIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/vehicles/': {
+      id: '/_authenticated/vehicles/'
+      path: '/vehicles'
+      fullPath: '/vehicles/'
+      preLoaderRoute: typeof AuthenticatedVehiclesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/vehicles/$reg': {
+      id: '/_authenticated/vehicles/$reg'
+      path: '/vehicles/$reg'
+      fullPath: '/vehicles/$reg'
+      preLoaderRoute: typeof AuthenticatedVehiclesRegRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -157,14 +308,24 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAppointmentsRoute: typeof AuthenticatedAppointmentsRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedTabletRoute: typeof AuthenticatedTabletRoute
+  AuthenticatedOverviewRoute: typeof AuthenticatedOverviewRoute
+  AuthenticatedTabletIdRoute: typeof AuthenticatedTabletIdRoute
+  AuthenticatedVehiclesRegRoute: typeof AuthenticatedVehiclesRegRoute
+  AuthenticatedTabletIndexRoute: typeof AuthenticatedTabletIndexRoute
+  AuthenticatedVehiclesIndexRoute: typeof AuthenticatedVehiclesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAppointmentsRoute: AuthenticatedAppointmentsRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedTabletRoute: AuthenticatedTabletRoute,
+  AuthenticatedOverviewRoute: AuthenticatedOverviewRoute,
+  AuthenticatedTabletIdRoute: AuthenticatedTabletIdRoute,
+  AuthenticatedVehiclesRegRoute: AuthenticatedVehiclesRegRoute,
+  AuthenticatedTabletIndexRoute: AuthenticatedTabletIndexRoute,
+  AuthenticatedVehiclesIndexRoute: AuthenticatedVehiclesIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -175,6 +336,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   BookRoute: BookRoute,
+  DisplayKeyRoute: DisplayKeyRoute,
+  TrackTokenRoute: TrackTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
